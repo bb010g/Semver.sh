@@ -10,48 +10,57 @@ requires [**mandoc(1)**](http://mandoc.bsd.lv/).
 
 # SEMVER(3)
 
+
 <div class="manual-text">
-<h2 class="Sh" title="Sh" id="NAME"><a class="selflink" href="#NAME">NAME</a></h2>
-<b class="Nm" title="Nm">Semver</b> &#x2014;
+<h2 class="Sh" id="NAME" title="Sh">NAME</h2>
+<b class="Nm" title="Nm">Semver</b> &mdash;
   <span class="Nd" title="Nd">semantic versioning functions</span>
-<h2 class="Sh" title="Sh" id="SYNOPSIS"><a class="selflink" href="#SYNOPSIS">SYNOPSIS</a></h2>
+<h2 class="Sh" id="SYNOPSIS" title="Sh">SYNOPSIS</h2>
 <table class="Nm">
   <tr>
     <td><b class="Nm" title="Nm">Semver::validate</b></td>
     <td><var class="Ar" title="Ar">version</var>
       [<span class="Op"><var class="Ar" title="Ar">variable</var></span>]</td>
   </tr>
+
   <tr>
     <td><b class="Nm" title="Nm">Semver::compare</b></td>
     <td><var class="Ar" title="Ar">version</var>
       <var class="Ar" title="Ar">version</var></td>
   </tr>
+
   <tr>
     <td><b class="Nm" title="Nm">Semver::is_prerelease</b></td>
     <td><var class="Ar" title="Ar">version</var></td>
   </tr>
+
   <tr>
     <td><b class="Nm" title="Nm">Semver::increment_major</b></td>
     <td><var class="Ar" title="Ar">version</var></td>
   </tr>
+
   <tr>
     <td><b class="Nm" title="Nm">Semver::increment_minor</b></td>
     <td><var class="Ar" title="Ar">version</var></td>
   </tr>
+
   <tr>
     <td><b class="Nm" title="Nm">Semver::increment_patch</b></td>
     <td><var class="Ar" title="Ar">version</var></td>
   </tr>
+
   <tr>
     <td><b class="Nm" title="Nm">Semver::set_pre</b></td>
     <td><var class="Ar" title="Ar">version</var>
       <var class="Ar" title="Ar">pre-release</var></td>
   </tr>
+
   <tr>
     <td><b class="Nm" title="Nm">Semver::set_build</b></td>
     <td><var class="Ar" title="Ar">version</var>
       <var class="Ar" title="Ar">build metadata</var></td>
   </tr>
+
   <tr>
     <td><b class="Nm" title="Nm">Semver::pretty</b></td>
     <td><var class="Ar" title="Ar">major</var>
@@ -60,12 +69,11 @@ requires [**mandoc(1)**](http://mandoc.bsd.lv/).
       [<span class="Op"><var class="Ar" title="Ar">pre-release</var></span>]
       [<span class="Op"><var class="Ar" title="Ar">build_metadata</var></span>]</td>
   </tr>
-</table>
-<h2 class="Sh" title="Sh" id="DESCRIPTION"><a class="selflink" href="#DESCRIPTION">DESCRIPTION</a></h2>
+</table><h2 class="Sh" id="DESCRIPTION" title="Sh">DESCRIPTION</h2>
 <b class="Nm" title="Nm">Semver::validate</b> validates a semantic version
   string and optionally returns the parsed output. It prints its input
   <var class="Ar" title="Ar">version</var>, erroring with a description of
-  what's wrong if it's invalid. If <var class="Ar" title="Ar">variable</var> is
+  what&#39;s wrong if it&#39;s invalid. If <var class="Ar" title="Ar">variable</var> is
   also provided, a snippet for array assignment of the parsed parts to
   <var class="Ar" title="Ar">variable</var> is instead printed, allowing for an
   easy <b class="Nm" title="Nm">eval</b> afterwards. (You probably want to run
@@ -105,13 +113,13 @@ requires [**mandoc(1)**](http://mandoc.bsd.lv/).
 <b class="Nm" title="Nm">Semver::pretty</b> takes separate parts and formats
   them into a semver. Note that no validation is performed on the returned
   version.
-<h2 class="Sh" title="Sh" id="VENDORING"><a class="selflink" href="#VENDORING">VENDORING</a></h2>
+<h2 class="Sh" id="VENDORING" title="Sh">VENDORING</h2>
 If you wish to copy and paste these functions into your own script to vendor
   them, <b class="Nm" title="Nm">Semver::validate</b> &amp;
   <b class="Nm" title="Nm">Semver::pretty</b> have no dependencies. All other
   functions depend on <b class="Nm" title="Nm">Semver::validate</b>. Please
   remember to provide proper attribution and license information.
-<h2 class="Sh" title="Sh" id="ERRORS"><a class="selflink" href="#ERRORS">ERRORS</a></h2>
+<h2 class="Sh" id="ERRORS" title="Sh">ERRORS</h2>
 All errors start with the name of their associated function, like so:
 <div class="D1"><code class="Li">Semver::validate: ...</code></div>
 <dl class="Bl-tag">
@@ -168,11 +176,10 @@ All errors start with the name of their associated function, like so:
     </ul>
   </dd>
 </dl>
-<h2 class="Sh" title="Sh" id="EXAMPLE"><a class="selflink" href="#EXAMPLE">EXAMPLE</a></h2>
+<h2 class="Sh" id="EXAMPLE" title="Sh">EXAMPLE</h2>
 The following script is designed to be placed next to a copy of
   <b class="Nm" title="Nm">Semver.sh</b>.
 <div class="Pp"></div>
-<div class="Bd" style="margin-left: 0.00ex;">
 
 ```
 #!/bin/bash 
@@ -182,57 +189,55 @@ ver_a='1.2.11-alpha+001'
 ver_b='1.4.0' 
 ver_invalid='1.5.' 
  
-Semver::validate &quot;$ver_invalid&quot; 2&gt;/dev/null \ 
-  &amp;&amp; echo &quot;$ver_invalid should be an invalid semver&quot; \ 
-  || echo &quot;$ver_invalid is an invalid semver&quot; 
+Semver::validate "$ver_invalid" 2>/dev/null \ 
+  && echo "$ver_invalid should be an invalid semver" \ 
+  || echo "$ver_invalid is an invalid semver" 
  
 echo 
  
 declare -a v 
-eval &quot;$(Semver::validate &quot;$ver_a&quot; v)&quot; 
-echo &quot;Parts of \$ver_a:&quot; 
-echo &quot;major=${v[0]}, minor=${v[1]}, patch=${v[2]},&quot; 
-echo &quot;pre-release=${v[3]}, build metadata=${v[4]}&quot; 
+eval "$(Semver::validate "$ver_a" v)" 
+echo "Parts of \$ver_a:" 
+echo "major=${v[0]}, minor=${v[1]}, patch=${v[2]}," 
+echo "pre-release=${v[3]}, build metadata=${v[4]}" 
  
 echo 
  
 compare_vers() { 
-  echo -n &quot;Comparsion between $ver_a &amp; $ver_b: &quot; 
+  echo -n "Comparsion between $ver_a & $ver_b: " 
   Semver::compare $ver_a $ver_b 
 } 
 compare_vers 
-ver_a=$(Semver::increment_minor &quot;$ver_a&quot;) 
-ver_a=$(Semver::increment_minor &quot;$ver_a&quot;) 
+ver_a=$(Semver::increment_minor "$ver_a") 
+ver_a=$(Semver::increment_minor "$ver_a") 
 compare_vers 
-ver_a=$(Semver::increment_patch &quot;$ver_a&quot;) 
+ver_a=$(Semver::increment_patch "$ver_a") 
 compare_vers 
-ver_b=$(Semver::increment_patch &quot;$ver_b&quot;) 
-ver_a=$(Semver::set_pre &quot;$ver_a&quot; 'alpha') 
-ver_b=$(Semver::set_pre &quot;$ver_b&quot; 'alpha') 
-ver_a=$(Semver::set_build &quot;$ver_a&quot; 'musl') 
-ver_b=$(Semver::set_build &quot;$ver_b&quot; 'glibc') 
+ver_b=$(Semver::increment_patch "$ver_b") 
+ver_a=$(Semver::set_pre "$ver_a" 'alpha') 
+ver_b=$(Semver::set_pre "$ver_b" 'alpha') 
+ver_a=$(Semver::set_build "$ver_a" 'musl') 
+ver_b=$(Semver::set_build "$ver_b" 'glibc') 
 compare_vers 
-ver_b=$(Semver::set_pre &quot;$ver_b&quot; 'beta') 
-ver_b=$(Semver::set_build &quot;$ver_b&quot; '') 
+ver_b=$(Semver::set_pre "$ver_b" 'beta') 
+ver_b=$(Semver::set_build "$ver_b" '') 
 compare_vers 
-ver_a=$(Semver::set_pre &quot;$ver_a&quot; '') 
-ver_a=$(Semver::set_build &quot;$ver_a&quot; '') 
+ver_a=$(Semver::set_pre "$ver_a" '') 
+ver_a=$(Semver::set_build "$ver_a" '') 
 compare_vers 
  
 echo 
  
-echo -n &quot;Is $ver_b a pre-release? &quot; 
-Semver::is_prerelease &quot;$ver_b&quot; 
-echo -n &quot;What about $ver_a? &quot; 
-Semver::is_prerelease &quot;$ver_a&quot;
+echo -n "Is $ver_b a pre-release? " 
+Semver::is_prerelease "$ver_b" 
+echo -n "What about $ver_a? " 
+Semver::is_prerelease "$ver_a"
 ```
 
-</div>
 <div class="Pp"></div>
 We can then run <code class="Li">bash example.sh</code> for the
   following output:
 <div class="Pp"></div>
-<div class="Bd" style="margin-left: 0.00ex;">
 
 ```
 1.5. is an invalid semver 
@@ -241,30 +246,29 @@ Parts of $ver_a:
 major=1, minor=2, patch=11, 
 pre-release=alpha, build metadata=001 
  
-Comparsion between 1.2.11-alpha+001 &amp; 1.4.10: -1 
-Comparsion between 1.4.0 &amp; 1.4.0: 0 
-Comparsion between 1.4.1 &amp; 1.4.0: 1 
-Comparsion between 1.4.1-alpha+musl &amp; 1.4.1-alpha+glibc: 0 
-Comparsion between 1.4.1-alpha+musl &amp; 1.4.1-beta: -1 
-Comparsion between 1.4.1 &amp; 1.4.1-beta: 1 
+Comparsion between 1.2.11-alpha+001 & 1.4.10: -1 
+Comparsion between 1.4.0 & 1.4.0: 0 
+Comparsion between 1.4.1 & 1.4.0: 1 
+Comparsion between 1.4.1-alpha+musl & 1.4.1-alpha+glibc: 0 
+Comparsion between 1.4.1-alpha+musl & 1.4.1-beta: -1 
+Comparsion between 1.4.1 & 1.4.1-beta: 1 
  
 Is 1.4.1-beta a pre-release? yes 
 What about 1.4.1? no
 ```
 
-</div>
-<h2 class="Sh" title="Sh" id="BUGS"><a class="selflink" href="#BUGS">BUGS</a></h2>
+<h2 class="Sh" id="BUGS" title="Sh">BUGS</h2>
 Hopefully not, but if you do find some, let me know on GitHub or email me.
-<h2 class="Sh" title="Sh" id="SEE_ALSO"><a class="selflink" href="#SEE_ALSO">SEE
-  ALSO</a></h2>
-<a class="Lk" title="Lk" href="https://semver.org/">Semantic Versioning
+<h2 class="Sh" id="SEE_ALSO" title="Sh">SEE
+  ALSO</h2>
+<a class="Lk" href="https://semver.org/" title="Lk">Semantic Versioning
   specification</a>, <b class="Xr" title="Xr">bash(1)</b>
-<h2 class="Sh" title="Sh" id="AUTHORS"><a class="selflink" href="#AUTHORS">AUTHORS</a></h2>
+<h2 class="Sh" id="AUTHORS" title="Sh">AUTHORS</h2>
 <span class="An" title="An">bb010g</span>
-  &lt;<a class="Mt" title="Mt" href="mailto:me@bb010g.com">me@bb010g.com</a>&gt;
-<div style="height: 1.00em;">&#x00A0;</div>
+  &lt;<a class="Mt" href="mailto:me@bb010g.com" title="Mt">me@bb010g.com</a>&gt;
+<div style="height: 1.00em;">&nbsp;</div>
 The latest sources, full contributor list, and more can be found at
-  <a class="Lk" title="Lk" href="https://github.com/bb010g/semver.sh">https://github.com/bb010g/semver.sh</a>.</div>
+  <a class="Lk" href="https://github.com/bb010g/semver.sh" title="Lk">https://github.com/bb010g/semver.sh</a>.</div>
 <table class="foot">
   <tr>
     <td class="foot-date">June 6, 2018</td>
