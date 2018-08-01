@@ -53,8 +53,8 @@ Semver::compare() {
   if [[ -z $x_i && $y_i ]]; then echo 1; return; fi
   if [[ $x_i && -z $y_i ]]; then echo -1; return; fi
 
-  declare -a x_pre x_len
-  declare y_pre y_len
+  declare -a x_pre; declare x_len
+  declare -a y_pre; declare y_len
   IFS=. read -ra x_pre <<< "$x_i"; x_len=${#x_pre[@]}
   IFS=. read -ra y_pre <<< "$y_i"; y_len=${#y_pre[@]}
 
