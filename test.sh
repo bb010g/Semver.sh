@@ -1,7 +1,7 @@
 #!/bin/bash
 
 _valid() {
-  echo "${1@Q}"
+  echo "'$1'"
   local out
   out=$(Semver::validate "$1" out 2>&1)
   local ret=$?
@@ -14,7 +14,7 @@ _valid() {
     assertEquals "build" "$6" "${out[4]}"
   else
     if [[ $out != Semver::validate:\ * ]]; then
-      failNotEquals 'erroring function' 'Semver::validate' "${out%%:*}" 
+      failNotEquals 'erroring function' 'Semver::validate' "${out%%:*}"
     else
       out=${out#Semver::validate: }
       fail "error $ret unexpected:<$out>"
@@ -22,7 +22,7 @@ _valid() {
   fi
 }
 _invalid() {
-  echo "${1@Q} -> ${2@Q}"
+  echo "'$1' -> '$2'"
   local out
   out=$(Semver::validate "$1" out 2>&1)
   local ret=$?
@@ -31,7 +31,7 @@ _invalid() {
     fail "parse:<${out#out=}>"
   else
     if [[ $out != Semver::validate:\ * ]]; then
-      failNotEquals 'erroring function' 'Semver::validate' "${out%%:*}" 
+      failNotEquals 'erroring function' 'Semver::validate' "${out%%:*}"
     else
       out=${out#Semver::validate: }
       assertEquals "error message" "$2" "$out"
@@ -83,7 +83,7 @@ _compare() {
   elif [[ $2 = '=' ]]; then res=0
   elif [[ $2 = '>' ]]; then res=1
   else fail "unexpected op:<$2>"; fi
-  echo "${1@Q} $2 ${3@Q}"
+  echo "'$1' $2 '$3'"
   local out out_flip
   out=$(Semver::compare "$1" "$3" 2>&1)
   local ret=$?
@@ -94,13 +94,13 @@ _compare() {
     assertEquals "compare (flip)" "$((-res))" "$out_flip"
   else
     if [[ $out != Semver::compare:\ * ]]; then
-      failNotEquals 'erroring function' 'Semver::compare' "${out%%: *}" 
+      failNotEquals 'erroring function' 'Semver::compare' "${out%%: *}"
     elif [[ $ret -ne 0 ]]; then
       out=${out#Semver::compare: }
       fail "error $ret unexpected:<$out>"
     fi
     if [[ $out_flip != Semver::compare:\ * ]]; then
-      failNotEquals 'erroring function (flip)' 'Semver::compare' "${out_flip%%:*}" 
+      failNotEquals 'erroring function (flip)' 'Semver::compare' "${out_flip%%:*}"
     elif [[ $ret_flip -ne 0 ]]; then
       out_flip=${out_flip#Semver::compare: }
       fail "error $ret_flip unexpected:<$out_flip>"
@@ -150,12 +150,12 @@ _gen_Semver_eq() {
   out+=$'  local i args expect\n'
   out+=$'  for ((i=1; i < $#; i++)); do args[i-1]=${!i}; done\n'
   out+=$'  expect=${!i}\n'
-  out+=$'  echo "${@@Q}"\n'
+  out+=$'  echo "\'$@\'"\n'
   out+=$'  local out\n'
   out+=$'  out=$(Semver::'"$fun"$' "${args[@]}" 2>&1)\n'
   out+=$'  local ret=$?\n'
   out+=$'  if [[ $ret -eq 0 ]]; then\n'
-  out+=$'    assertEquals '"${msg@Q}"$' "$expect" "$out"\n'
+  out+=$'    assertEquals '"'$msg'"$' "$expect" "$out"\n'
   out+=$'  else\n'
   out+=$'    if [[ $out != Semver::'"$fun"$':\\ * ]]; then\n'
   out+=$'      failNotEquals \'erroring function\' \'Semver::'"$fun"$'\' "${out%%:*}"\n'
@@ -174,7 +174,7 @@ _gen_Semver_fail() {
   out+=$'  local i args expect\n'
   out+=$'  for ((i=1; i < $#; i++)); do args[i-1]=${!i}; done\n'
   out+=$'  expect=${!i}\n'
-  out+=$'  echo "${args[@]@Q} -> ${expect@Q}"\n'
+  out+=$'  echo "\'${args[@]}\' -> \'$expect\'"\n'
   out+=$'  local out\n'
   out+=$'  out=$(Semver::'"$fun"$' "${args[@]}" 2>&1)\n'
   out+=$'  local ret=$?\n'

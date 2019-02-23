@@ -30,7 +30,7 @@ Semver::validate() {
   fi
 
   if [[ $2 ]]; then
-    echo "$2=(${major@Q} ${minor@Q} ${patch@Q} ${pre@Q} ${build@Q})"
+    echo "$2=('$major' '$minor' '$patch' '$pre' '$build')"
   else
     echo "$1"
   fi
